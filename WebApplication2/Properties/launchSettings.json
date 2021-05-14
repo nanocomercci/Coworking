@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:65339",
-      "sslPort": 44398
+      "applicationUrl": "http://localhost:47727",
+      "sslPort": 44371
     }
   },
   "profiles": {
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Coworking.Api": {
+    "WebApplication2": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,
