@@ -10,25 +10,26 @@ using System.Threading.Tasks;
 
 namespace Coworking.Api.DataAccess.Repositories
 {
-    class BookingRespository : IBookingRepository
+    class ServiceRespoitory : IServiceRepository
     {
         private readonly ICoworkingDBContext _coworkingDBContext;
 
-        public BookingRespository(ICoworkingDBContext coworkingDBContext)
+        public ServiceRespoitory(ICoworkingDBContext coworkingDBContext)
         {
             _coworkingDBContext = coworkingDBContext;
         }
-        public async Task<BookingEntity> Add(BookingEntity element)
+
+        public async Task<ServiceEntity> Add(ServiceEntity element)
         {
-            await _coworkingDBContext.Bookings.AddAsync(element);
+            await _coworkingDBContext.Services.AddAsync(element);
             await _coworkingDBContext.SaveChangesAsync();
             return element;
         }
 
-        public async Task<BookingEntity> DeleteASync(int id)
+        public async Task<ServiceEntity> DeleteASync(int id)
         {
-            var entity = await _coworkingDBContext.Bookings.SingleAsync(x => x.Id == id);
-            _coworkingDBContext.Bookings.Remove(entity);
+            var entity = await _coworkingDBContext.Services.SingleAsync(x => x.Id == id);
+            _coworkingDBContext.Services.Remove(entity);
             await _coworkingDBContext.SaveChangesAsync();
             return entity;
         }
@@ -38,21 +39,20 @@ namespace Coworking.Api.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<BookingEntity> Get(int id)
+        public async Task<ServiceEntity> Get(int id)
         {
-            var result = await _coworkingDBContext.Bookings.FirstOrDefaultAsync(x => x.Id == id);
+            var result =  await _coworkingDBContext.Services.FirstOrDefaultAsync(x => x.Id == id);
             return result;
-                
         }
 
-        public Task<IEnumerable<BookingEntity>> GetAll()
+        public Task<IEnumerable<ServiceEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<BookingEntity> Update(int id, BookingEntity element)
+        public async Task<ServiceEntity> Update(int id, ServiceEntity element)
         {
-            var updateEntity = _coworkingDBContext.Bookings.Update(element);
+            var updateEntity = _coworkingDBContext.Services.Update(element);
             await _coworkingDBContext.SaveChangesAsync();
             return updateEntity.Entity;
         }
