@@ -45,16 +45,15 @@ namespace Coworking.Api.DataAccess.Repositories
 
         public async Task<AdminEntity> Get(int id)
         {
-            var result = await _coworkingDBContext.Admins
-                .Include(x => x.Office).FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _coworkingDBContext.Admins.FirstOrDefaultAsync(x => x.Id == id);
             return result;
 
 
         }
 
-        public Task<IEnumerable<AdminEntity>> GetAll()
+        public async Task<IEnumerable<AdminEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            return  _coworkingDBContext.Admins.Select(x => x);
         }
 
         public async Task<AdminEntity> Update(int id, AdminEntity element)

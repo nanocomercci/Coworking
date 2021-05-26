@@ -16,7 +16,6 @@ namespace Coworking.Api.DataAccess.EntityConfig
             entityBuilder.ToTable("Offices");
             entityBuilder.HasKey(x => x.Id);
             entityBuilder.Property(x => x.Id).IsRequired();
-            entityBuilder.HasOne(x => x.Admin).WithOne(x => x.Office).HasForeignKey<AdminEntity>(a => a.Id);
             entityBuilder.HasOne(x => x.Booking).WithOne(x => x.Office);
 
         }

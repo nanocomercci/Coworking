@@ -22,7 +22,9 @@ namespace Coworking.Api.DataAccess.Migrations
             modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.AdminEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -102,6 +104,9 @@ namespace Coworking.Api.DataAccess.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("AdminId")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -127,6 +132,8 @@ namespace Coworking.Api.DataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Offices");
                 });
@@ -217,17 +224,6 @@ namespace Coworking.Api.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.AdminEntity", b =>
-                {
-                    b.HasOne("Coworking.Api.DataAccess.Contracts.Entities.OfficeEntity", "Office")
-                        .WithOne("Admin")
-                        .HasForeignKey("Coworking.Api.DataAccess.Contracts.Entities.AdminEntity", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Office");
-                });
-
             modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.BookingEntity", b =>
                 {
                     b.HasOne("Coworking.Api.DataAccess.Contracts.Entities.OfficeEntity", "Office")
@@ -266,6 +262,15 @@ namespace Coworking.Api.DataAccess.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.OfficeEntity", b =>
+                {
+                    b.HasOne("Coworking.Api.DataAccess.Contracts.Entities.AdminEntity", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId");
+
+                    b.Navigation("Admin");
+                });
+
             modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.Room2ServicesEntity", b =>
                 {
                     b.HasOne("Coworking.Api.DataAccess.Contracts.Entities.RoomEntity", "Room")
@@ -285,8 +290,6 @@ namespace Coworking.Api.DataAccess.Migrations
 
             modelBuilder.Entity("Coworking.Api.DataAccess.Contracts.Entities.OfficeEntity", b =>
                 {
-                    b.Navigation("Admin");
-
                     b.Navigation("Booking");
 
                     b.Navigation("Office2Room");

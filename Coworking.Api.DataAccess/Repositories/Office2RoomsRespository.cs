@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Coworking.Api.DataAccess.Repositories
 {
-    class Office2RoomsRespository : IOffice2RoomsRespository
+    public class Office2RoomsRespository : IOffice2RoomsRespository
     {
         private readonly ICoworkingDBContext _coworkingDBContext;
 
